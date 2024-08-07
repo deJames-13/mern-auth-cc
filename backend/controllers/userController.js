@@ -3,6 +3,14 @@ import * as userService from '../services/userService.js';
 import { errorHandler, successHandler } from '../utils/responseHandler.js';
 
 // @desc    Authenticate user & get token
+// route    GET /api/users
+// @access  Public
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await userService.getUsers(req, res);
+  successHandler({ res, message: 'Users!', users });
+});
+
+// @desc    Authenticate user & get token
 // route    POST /api/users/authenticate
 // @access  Public
 const authenticate = asyncHandler(async (req, res) => {
@@ -39,4 +47,4 @@ const updateProfile = asyncHandler(async (req, res) => {
   successHandler({ res, message: 'Profile updated!' });
 });
 
-export { authenticate, getProfile, logout, register, updateProfile };
+export { authenticate, getProfile, getUsers, logout, register, updateProfile };
