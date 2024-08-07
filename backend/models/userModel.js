@@ -1,5 +1,4 @@
 import Model from './model.js';
-
 const User = new Model({
   name: 'User',
   schema: [

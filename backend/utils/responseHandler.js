@@ -1,10 +1,9 @@
-const errorHandler = ({
-  res,
-  statusCode = 400,
-  errorMessage = 'Unknown error',
-}) => {
+import ValidationError from '../errors/validationError.js';
+
+const errorHandler = ({ res, statusCode = 400, message, ...details }) => {
   res.status(statusCode);
-  throw new Error(errorMessage);
+  if (statusCode === 422) throw new ValidationError(message, details.errors);
+  throw new Error(message);
 };
 
 const successHandler = ({ res, statusCode = 200, message, ...details }) => {
