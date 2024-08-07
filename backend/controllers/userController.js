@@ -13,7 +13,7 @@ const authenticate = asyncHandler(async (req, res) => {
 // route    POST /api/users
 // @access  Public
 const register = asyncHandler(async (req, res) => {
-  const user = await userService.createUser(req, res, req.body);
+  const user = await userService.createUser(req, res);
   if (user) successHandler({ res, message: 'Registered!', user });
   else errorHandler({ res, statusCode: 500 });
 });

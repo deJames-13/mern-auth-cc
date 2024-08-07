@@ -1,4 +1,6 @@
+import bcrypt from 'bcryptjs';
 import Model from './model.js';
+
 const User = new Model({
   name: 'User',
   schema: [
@@ -22,5 +24,12 @@ const User = new Model({
 });
 User.fillables = ['name', 'email', 'password'];
 User.hidden = ['password'];
+User.pre('save', async function (next) {
+  if (this.isModified('password')) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  next();
+});
 
-export default User;
+export default User.makeModel();

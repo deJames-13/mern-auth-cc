@@ -6,10 +6,10 @@ import { userValidationRules } from '../validations/userValidation.js';
 
 const showUser = asyncHandler(async (req, res) => {});
 
-const createUser = asyncHandler(async (req, res, data) => {
+const createUser = asyncHandler(async (req, res) => {
   await validate(req, res, userValidationRules);
 
-  data = User.filterFillables(data);
+  const data = User.filterFillables(req.body);
   const userExists = await User.findOne({ email: data.email });
 
   if (userExists) return errorHandler({ res, message: 'User already exists' });
@@ -25,3 +25,4 @@ const updateUser = asyncHandler(async (req, res) => {});
 const deleteUser = asyncHandler(async (req, res) => {});
 
 export { createUser, deleteUser, showUser, updateUser };
+

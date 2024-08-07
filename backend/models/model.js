@@ -8,6 +8,10 @@ class Model extends mongoose.Schema {
 
     this.statics.filterFillables = this.constructor.filterFillables;
 
+    return this;
+  }
+
+  makeModel() {
     return mongoose.model(this.name, this);
   }
 
