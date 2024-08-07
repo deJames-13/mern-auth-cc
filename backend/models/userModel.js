@@ -22,8 +22,8 @@ const User = new Model({
     { timestamps: true },
   ],
 });
-User.fillables = ['name', 'email', 'password'];
-User.hidden = ['password'];
+User.statics.fillables = ['name', 'email', 'password'];
+User.statics.hidden = ['password'];
 User.pre('save', async function (next) {
   if (this.isModified('password')) {
     const salt = await bcrypt.genSalt(10);

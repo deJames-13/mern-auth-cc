@@ -10,19 +10,16 @@ const createUser = asyncHandler(async (req, res) => {
   await validate(req, res, userValidationRules);
 
   const data = User.filterFillables(req.body);
+  console.log(data);
   const userExists = await User.findOne({ email: data.email });
 
   if (userExists) return errorHandler({ res, message: 'User already exists' });
-  const user = new User(data);
-  await user.validate();
-  await user.save();
+  const user = await User.create(data);
 
-  return user;
+  return User.filterHidden(user.toObject());
 });
 
 const updateUser = asyncHandler(async (req, res) => {});
-
 const deleteUser = asyncHandler(async (req, res) => {});
 
 export { createUser, deleteUser, showUser, updateUser };
-
