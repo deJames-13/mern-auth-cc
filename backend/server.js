@@ -1,11 +1,14 @@
 import express from 'express';
-import { MONGO_URI, PORT, connectDB } from './config/index.js';
+import { connectDB } from './config/index.js';
+import { MONGO_URI, PORT } from './env/index.js';
 import * as err from './middleware/errorMiddleware.js';
 import router from './routes/index.js';
 
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api', router);
 
 app.use(err.notFound);

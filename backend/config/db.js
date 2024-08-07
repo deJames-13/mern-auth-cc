@@ -11,4 +11,4 @@ const connectDB = async (uri) => {
     });
 };
 
-export default connectDB;
+export { connectDB };

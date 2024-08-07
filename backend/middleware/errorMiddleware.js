@@ -11,10 +11,17 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'CastError' && err.kind === 'ObjectId') {
     statusCode = 404;
     message = 'Resource not found';
+  } else if (err.name === 'ValidationError') {
+    statusCode = 422;
+    message = Object.values(err.errors)
+      .map((val) => val.message)
+      .join(', ');
   }
-
   res.status(statusCode).json({
+    ...err,
     message,
+    statusCode,
+    status: err.name,
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 };
