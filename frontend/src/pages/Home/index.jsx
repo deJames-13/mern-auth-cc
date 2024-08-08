@@ -1,5 +1,6 @@
 import { FaGithubAlt } from 'react-icons/fa';
 import { LinkButton } from './../../components';
+
 function Home() {
   return (
     <div className='container grid h-screen max-w-md p-8 mx-auto place-items-center'>
