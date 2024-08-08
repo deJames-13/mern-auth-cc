@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import { connectDB } from './config/index.js';
 import { MONGO_URI, PORT } from './env/index.js';
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cookieParser());
 app.use('/api', router);
 
 app.use(err.notFound);

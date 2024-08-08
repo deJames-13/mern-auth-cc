@@ -1,16 +1,18 @@
 import { Router } from 'express';
 import * as userController from '../controllers/userController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const userRouter = Router();
 
-userRouter
-  .route('/profile')
-  .get(userController.getProfile)
-  .put(userController.updateProfile);
-
-userRouter.get('/', userController.getUsers);
 userRouter.post('/', userController.register);
 userRouter.post('/authenticate', userController.authenticate);
-userRouter.post('/logout', userController.logout);
+
+userRouter.get('/', protect, userController.getUsers);
+userRouter.post('/logout', protect, userController.logout);
+
+userRouter
+  .route('/profile')
+  .get(protect, userController.getProfile)
+  .put(protect, userController.updateProfile);
 
 export default userRouter;

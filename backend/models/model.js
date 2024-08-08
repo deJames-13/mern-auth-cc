@@ -5,24 +5,24 @@ class Model extends mongoose.Schema {
     this.name = name;
 
     this.statics.filterFillables = (data) => {
-      if (!this.statics.fillables) return data;
+      if (!this.statics.fillables?.length) return data;
+
       return Object.keys(data).reduce((acc, key) => {
-        if (this.statics.fillables.includes(key)) {
-          acc[key] = data[key];
-        }
+        if (this.statics.fillables.includes(key)) acc[key] = data[key];
         return acc;
       }, {});
     };
 
-    this.statics.filterHidden = (data) => {
-      if (!this.statics.hidden) return data;
-      return Object.keys(data).reduce((acc, key) => {
-        if (!this.statics.hidden.includes(key)) {
-          acc[key] = data[key];
-        }
-        return acc;
-      }, {});
+    this.methods.toJSON = function () {
+      const obj = this.toObject();
+
+      this.constructor.hidden.forEach((field) => {
+        delete obj[field];
+      });
+
+      return obj;
     };
+
     return this;
   }
 

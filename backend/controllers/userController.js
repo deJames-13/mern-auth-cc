@@ -9,10 +9,11 @@ import UserResource from './../resources/userResource.js';
 // @access  Public
 const getUsers = asyncHandler(async (req, res) => {
   const users = await userService.getUsers(req, res);
+
   successHandler({
     res,
     message: 'Users!',
-    users: UserResource.collection(user),
+    users: users,
   });
 });
 
@@ -21,6 +22,7 @@ const getUsers = asyncHandler(async (req, res) => {
 // @access  Public
 const getUser = asyncHandler(async (req, res) => {
   let user = await userService.getUser(req, res);
+
   successHandler({ res, message: 'User!', user: UserResource.make(user) });
 });
 
@@ -29,6 +31,7 @@ const getUser = asyncHandler(async (req, res) => {
 // @access  Public
 const authenticate = asyncHandler(async (req, res) => {
   const { password } = req.body;
+  console.log(password);
   let user = await userService.getUser(req, res);
 
   if (!user || !(user && (await user.matchPassword(password))))
@@ -65,6 +68,7 @@ const register = asyncHandler(async (req, res) => {
 // @access  Public
 const logout = asyncHandler(async (req, res) => {
   destroyToken(res);
+
   successHandler({ res, message: 'Logged out!' });
 });
 
