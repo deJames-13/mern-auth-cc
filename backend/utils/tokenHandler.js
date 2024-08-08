@@ -3,7 +3,7 @@ import { JWT_EXPIRE, JWT_SECRET, NODE_ENV } from '../env/index.js';
 
 const generateToken = (res, userId, tokenAge) => {
   if (!userId) return null;
-  const token = jwt.sign({ id: userId }, JWT_SECRET, {
+  const token = jwt.sign({ userId }, JWT_SECRET, {
     expiresIn: `${JWT_EXPIRE}d` || '30d',
   });
 

@@ -16,7 +16,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = await getUser(req, res, decoded.userId);
+    req.user = await getUser({ id: decoded.userId });
 
     next();
   } catch (e) {

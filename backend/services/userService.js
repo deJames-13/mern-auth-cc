@@ -1,33 +1,40 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
-import { validate } from '../utils/validate.js';
-import { userValidationRules } from '../validations/userValidation.js';
+import { destroyToken, generateToken } from '../utils/tokenHandler.js';
 
-const getUsers = asyncHandler(async (req, res) => {
+export const getUsers = asyncHandler(async () => {
   const users = await User.find();
   return users;
 });
 
-const getUser = asyncHandler(async (req, res) => {
-  const { id, email } = { ...(req?.params || {}), ...(req?.body || {}) };
+export const getUser = asyncHandler(async ({ id, email }) => {
   const user = await User.findOne({
     $or: [{ _id: id }, { email }],
   });
-
   return user;
 });
 
-const createUser = asyncHandler(async (req, res) => {
-  await validate(req, res, userValidationRules);
-
-  const data = User.filterFillables(req.body);
+export const createUser = asyncHandler(async (body) => {
+  const data = User.filterFillables(body);
   const user = await User.create(data);
 
   return user;
 });
 
-const updateUser = asyncHandler(async (req, res) => {});
+export const updateUser = asyncHandler(async (id, body) => {
+  const data = User.filterFillables(body);
+  const user = await User.findByIdAndUpdate(id, data, { new: true });
 
-const deleteUser = asyncHandler(async (req, res) => {});
+  return user;
+});
 
-export { createUser, deleteUser, getUser, getUsers, updateUser };
+export const deleteUser = asyncHandler(async (id) => {
+  const user = await User.findByIdAndDelete(id);
+  return user;
+});
+
+export const authenticate = asyncHandler(async (email, password) => {
+  let user = await User.findOne({ email });
+  if (!user || !(user && (await user.matchPassword(password)))) return null;
+  return user;
+});

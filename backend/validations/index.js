@@ -1,1 +1,1 @@
-export { userValidationRules } from './userValidation.js';
+export { userCreateRules } from './userValidation.js';

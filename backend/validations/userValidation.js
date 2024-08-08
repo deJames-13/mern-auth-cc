@@ -1,6 +1,6 @@
 import { check } from 'express-validator';
 
-const userValidationRules = () => {
+const userCreateRules = () => {
   return [
     check('name').notEmpty().withMessage('Name is required'),
     check('email').isEmail().withMessage('Email is invalid'),
@@ -10,4 +10,11 @@ const userValidationRules = () => {
   ];
 };
 
-export { userValidationRules };
+const userUpdateRules = () => {
+  return [
+    check('name').notEmpty().withMessage('Name is required'),
+    check('email').isEmail().withMessage('Email is invalid'),
+  ];
+};
+
+export { userCreateRules, userUpdateRules };
