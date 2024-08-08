@@ -100,7 +100,11 @@ const updateProfile = asyncHandler(async (req, res) => {
   const user = await userService.updateUser(req.user._id, req.body);
   if (!user) return errorHandler({ res, message: 'Invalid user data!' });
 
-  successHandler({ res, message: 'Profile updated!', user });
+  successHandler({
+    res,
+    message: 'Profile updated!',
+    user: UserResource.make(user),
+  });
 });
 
 export {
