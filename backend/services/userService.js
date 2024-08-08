@@ -21,10 +21,9 @@ const createUser = asyncHandler(async (req, res) => {
   await validate(req, res, userValidationRules);
 
   const data = User.filterFillables(req.body);
-  console.log(data);
-  // const user = await User.create(data);
+  const user = await User.create(data);
 
-  // return user;
+  return user;
 });
 
 const updateUser = asyncHandler(async (req, res) => {});

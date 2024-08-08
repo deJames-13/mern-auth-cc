@@ -15,6 +15,7 @@ class Model extends mongoose.Schema {
 
     this.methods.toJSON = function () {
       const obj = this.toObject();
+      if (!this.constructor.hidden?.length) return obj;
 
       this.constructor.hidden.forEach((field) => {
         delete obj[field];

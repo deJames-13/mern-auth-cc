@@ -31,7 +31,6 @@ const getUser = asyncHandler(async (req, res) => {
 // @access  Public
 const authenticate = asyncHandler(async (req, res) => {
   const { password } = req.body;
-  console.log(password);
   let user = await userService.getUser(req, res);
 
   if (!user || !(user && (await user.matchPassword(password))))
@@ -76,7 +75,12 @@ const logout = asyncHandler(async (req, res) => {
 // route    GET /api/users/profile
 // @access  Private
 const getProfile = asyncHandler(async (req, res) => {
-  successHandler({ res, message: 'Profile!' });
+  const user = req.user;
+
+  if (!user._id)
+    return errorHandler({ res, statusCode: 401, message: 'Unauthorized' });
+
+  successHandler({ res, message: 'Profile fetch successfully!', user });
 });
 
 // @desc    Update user profile
