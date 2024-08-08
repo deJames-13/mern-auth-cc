@@ -4,8 +4,8 @@ export default class Resource {
     return this;
   }
 
-  make(data) {
-    return this.toArray();
+  static make(data) {
+    return new this(data).toArray();
   }
 
   toArray() {
