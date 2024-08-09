@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Navbar } from 'react-daisyui';
+import { FaUserAlt } from 'react-icons/fa';
 import { FaArrowRightToBracket } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -36,7 +37,15 @@ function Header() {
               </Link>
             </>
           ) : (
-            <LogoutButton />
+            <>
+              <LogoutButton className='btn btn-ghost' />
+              <Link to='/profile'>
+                <Button variant='outline' color='primary' className='text-white'>
+                  <FaUserAlt />
+                  Profile
+                </Button>
+              </Link>
+            </>
           )}
         </Navbar.End>
       </Navbar>
