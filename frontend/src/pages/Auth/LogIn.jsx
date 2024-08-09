@@ -28,7 +28,7 @@ function LogIn({ ...props }) {
 
     try {
       const res = await login(payload).unwrap();
-      dispatch(setCredentials({ ...res }));
+      dispatch(setCredentials(res.user));
       navigate('/');
     } catch (e) {
       toast.error(e?.data?.message || e.error);

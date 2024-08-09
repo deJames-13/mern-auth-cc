@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Button, Navbar } from 'react-daisyui';
 import { FaArrowRightToBracket } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { LogoutButton } from './../../components';
 
 function Header() {
+  const { userInfo } = useSelector((state) => state.auth);
   const location = useLocation();
   const [isLogin, setIsLogin] = useState(location.pathname !== '/signup');
   return (
@@ -18,17 +21,23 @@ function Header() {
         </Navbar.Start>
 
         <Navbar.End>
-          <Link to='/signup'>
-            <Button onClick={() => setIsLogin(false)} color={isLogin ? 'ghost' : 'primary'}>
-              Sign Up
-            </Button>
-          </Link>
-          <Link to='/login'>
-            <Button onClick={() => setIsLogin(true)} color={isLogin ? 'primary' : 'ghost'}>
-              <FaArrowRightToBracket />
-              Log In
-            </Button>
-          </Link>
+          {!userInfo?.id ? (
+            <>
+              <Link to='/signup'>
+                <Button onClick={() => setIsLogin(false)} color={isLogin ? 'ghost' : 'primary'}>
+                  Sign Up
+                </Button>
+              </Link>
+              <Link to='/login'>
+                <Button onClick={() => setIsLogin(true)} color={isLogin ? 'primary' : 'ghost'}>
+                  <FaArrowRightToBracket />
+                  Log In
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <LogoutButton />
+          )}
         </Navbar.End>
       </Navbar>
     </>

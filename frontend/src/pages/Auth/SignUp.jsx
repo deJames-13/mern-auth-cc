@@ -29,7 +29,7 @@ function SignUp({ ...props }) {
 
     try {
       const res = await register(payload).unwrap();
-      dispatch(setCredentials({ ...res }));
+      dispatch(setCredentials(res.user));
       navigate('/');
     } catch (error) {
       toast.error(error?.data?.message || error.error);
