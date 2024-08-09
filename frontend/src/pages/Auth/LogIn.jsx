@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Button, Card, Form, Hero, Input } from 'react-daisyui';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Spinner } from './../../components';
-import { setCredentials, useLoginMutation } from './../../slices';
+import { setCredentials, usersApi } from './../../slices';
 
 function LogIn({ ...props }) {
   const fields = {
@@ -14,14 +15,7 @@ function LogIn({ ...props }) {
   const values = useRef(fields);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
-  const [login, { isLoading }] = useLoginMutation();
-
-  useEffect(() => {
-    if (userInfo) navigate('/');
-
-    return () => {};
-  }, [navigate, userInfo]);
+  const [login, { isLoading }] = usersApi.useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,14 +31,13 @@ function LogIn({ ...props }) {
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (e) {
-      console.error(e?.data?.message || e.error);
+      toast.error(e?.data?.message || e.error);
     }
   };
 
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  return (
     <div className='max-w-5xl'>
+      {isLoading && <Spinner />}
       <Hero {...props}>
         <Hero.Content className='flex-col lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
@@ -81,7 +74,7 @@ function LogIn({ ...props }) {
                 </label>
               </Form>
               <Form className='mt-6' onSubmit={handleSubmit}>
-                <Button>Login</Button>
+                <Button type='submit'>Login</Button>
               </Form>
             </Card.Body>
           </Card>

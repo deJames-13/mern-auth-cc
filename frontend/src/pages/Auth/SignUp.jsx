@@ -1,5 +1,10 @@
 import { useRef } from 'react';
 import { Button, Card, Form, Hero, Input } from 'react-daisyui';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Spinner } from './../../components';
+import { setCredentials, usersApi } from './../../slices';
 
 function SignUp({ ...props }) {
   const fields = {
@@ -10,14 +15,30 @@ function SignUp({ ...props }) {
   };
 
   const values = useRef(fields);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [register, { isLoading }] = usersApi.useRegisterMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.table(Object.values(values.current).map((field) => field.value));
+    const payload = {
+      name: values.current.name.value,
+      email: values.current.email.value,
+      password: values.current.password.value,
+    };
+
+    try {
+      const res = await register(payload).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate('/');
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
   };
 
   return (
     <div className='max-w-5xl'>
+      {isLoading && <Spinner />}
       <Hero {...props}>
         <Hero.Content className='flex-col-reverse lg:flex-row-reverse'>
           <Card className='flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
