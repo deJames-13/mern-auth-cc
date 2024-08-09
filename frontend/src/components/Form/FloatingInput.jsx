@@ -1,5 +1,4 @@
-import { propTypes } from './config';
-
+import { PropTypes } from 'prop-types';
 function FloatingInput({ label, refer, ...inputProps }) {
   return (
     <div className='relative border border-gray-500 rounded-lg overflow-clip'>
@@ -21,5 +20,8 @@ function FloatingInput({ label, refer, ...inputProps }) {
   );
 }
 
-FloatingInput.propTypes = propTypes;
+FloatingInput.propTypes = {
+  label: PropTypes.string,
+  refer: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+};
 export default FloatingInput;

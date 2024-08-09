@@ -1,5 +1,6 @@
 import { DefaultLayout } from '../../layouts';
 import { Home } from '../../pages';
+import { LogIn, SignUp } from '../../pages/Auth';
 
 const defaultRoutes = [
   {
@@ -13,6 +14,14 @@ const defaultRoutes = [
       {
         path: '/home',
         element: <Home />,
+      },
+      {
+        path: '/login',
+        element: <LogIn />,
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
       },
     ],
   },
