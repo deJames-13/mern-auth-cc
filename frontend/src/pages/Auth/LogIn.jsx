@@ -1,19 +1,49 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Button, Card, Form, Hero, Input } from 'react-daisyui';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Spinner } from './../../components';
+import { setCredentials, useLoginMutation } from './../../slices';
 
 function LogIn({ ...props }) {
   const fields = {
     email: '',
     password: '',
   };
+
   const values = useRef(fields);
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+  const [login, { isLoading }] = useLoginMutation();
+
+  useEffect(() => {
+    if (userInfo) navigate('/');
+
+    return () => {};
+  }, [navigate, userInfo]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.table(Object.values(values.current).map((field) => field.value));
+
+    const { email, password } = values.current;
+    const payload = {
+      email: email.value,
+      password: password.value,
+    };
+
+    try {
+      const res = await login(payload).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate('/');
+    } catch (e) {
+      console.error(e?.data?.message || e.error);
+    }
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className='max-w-5xl'>
       <Hero {...props}>
         <Hero.Content className='flex-col lg:flex-row-reverse'>
@@ -40,7 +70,7 @@ function LogIn({ ...props }) {
                   ref={(el) => {
                     values.current.password = el;
                   }}
-                  type='text'
+                  type='password'
                   placeholder='password'
                   className='input-bordered'
                 />

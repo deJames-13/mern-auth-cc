@@ -30,7 +30,7 @@ function SignUp({ ...props }) {
                       ref={(el) => {
                         values.current[field] = el;
                       }}
-                      type='text'
+                      type={['email', 'password'].includes(field.split('_')[0]) ? field.split('_')[0] : 'text'}
                       className='input-bordered'
                     />
                   </Form>

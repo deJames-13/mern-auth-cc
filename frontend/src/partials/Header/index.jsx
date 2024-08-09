@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Button, Navbar } from 'react-daisyui';
 import { FaArrowRightToBracket } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+  const location = useLocation();
+  const [isLogin, setIsLogin] = useState(location.pathname !== '/signup');
   return (
     <>
       <Navbar>
         <Navbar.Start>
           <Link to='/'>
-            <Button className='btn btn-ghost normal-case text-xl'>auth</Button>
+            <Button onClick={() => setIsLogin(true)} className='text-xl normal-case btn btn-ghost'>
+              auth
+            </Button>
           </Link>
         </Navbar.Start>
 
