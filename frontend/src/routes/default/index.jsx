@@ -7,22 +7,9 @@ const defaultRoutes = [
     path: '/',
     element: <DefaultLayout />,
     children: [
-      {
-        path: '/',
-        element: <Home />,
-      },
-      {
-        path: '/home',
-        element: <Home />,
-      },
-      {
-        path: '/login',
-        element: <LogIn />,
-      },
-      {
-        path: '/signup',
-        element: <SignUp />,
-      },
+      { path: '/', element: <Home /> },
+      { path: '/login', element: <LogIn /> },
+      { path: '/signup', element: <SignUp /> },
     ],
   },
 ];

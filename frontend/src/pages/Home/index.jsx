@@ -1,4 +1,4 @@
-import HeroWrapper from './../../partials/Hero/index';
+import { HeroWrapper } from './../../partials';
 
 function Home() {
   return <HeroWrapper />;

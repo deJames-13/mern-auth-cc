@@ -2,7 +2,7 @@ import { apiSlice } from '.';
 
 const USERS_URL = '/api/users';
 
-const usersApi = apiSlice.injectEndpoints({
+export const usersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (data) => ({
@@ -34,5 +34,3 @@ const usersApi = apiSlice.injectEndpoints({
 //
 //
 // ex: useLoginMutation, useLoginQuery, useLoginSubscription
-
-export default usersApi;

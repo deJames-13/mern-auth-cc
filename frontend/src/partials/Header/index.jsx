@@ -15,9 +15,7 @@ function Header() {
       <Navbar>
         <Navbar.Start>
           <Link to='/'>
-            <Button onClick={() => setIsLogin(true)} className='text-xl normal-case btn btn-ghost'>
-              auth
-            </Button>
+            <Button className='text-xl normal-case btn btn-ghost'>auth</Button>
           </Link>
         </Navbar.Start>
 
