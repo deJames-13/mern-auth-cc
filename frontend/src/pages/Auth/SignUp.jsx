@@ -21,16 +21,16 @@ function SignUp({ ...props }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      name: values.current.name.value,
-      email: values.current.email.value,
-      password: values.current.password.value,
-    };
+
+    const payload = Object.keys(values.current).reduce((acc, key) => ({ ...acc, [key]: values.current[key].value }), {});
+
+    console.table(payload);
 
     try {
       const res = await register(payload).unwrap();
       dispatch(setCredentials(res.user));
       navigate('/');
+      toast.success('Registration successful');
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
