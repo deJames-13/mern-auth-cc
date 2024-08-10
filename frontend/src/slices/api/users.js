@@ -2,7 +2,7 @@ import { apiSlice } from '.';
 
 const USERS_URL = '/api/users';
 
-export const usersApiSlice = apiSlice.injectEndpoints({
+const usersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (data) => ({
@@ -27,4 +27,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } = usersApiSlice;
+// Naming Convention:
+// mutation: use{Resource}Mutation
+// query: use{Resource}Query
+// subscription: use{Resource}Subscription
+//
+//
+// ex: useLoginMutation, useLoginQuery, useLoginSubscription
+
+export default usersApi;
