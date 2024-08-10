@@ -4,12 +4,13 @@ import { FaUserAlt } from 'react-icons/fa';
 import { FaArrowRightToBracket } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { LogoutButton } from './../../components';
+import { LogoutButton, ThemeToggler } from './../../components';
 
 function Header() {
   const { userInfo } = useSelector((state) => state.auth);
   const location = useLocation();
   const [isLogin, setIsLogin] = useState(location.pathname !== '/signup');
+
   return (
     <>
       <Navbar>
@@ -17,6 +18,7 @@ function Header() {
           <Link to='/'>
             <Button className='text-xl normal-case btn btn-ghost'>auth</Button>
           </Link>
+          <ThemeToggler />
         </Navbar.Start>
 
         <Navbar.End>

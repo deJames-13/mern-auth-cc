@@ -12,6 +12,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-console.log(router);
-
 export default router;
