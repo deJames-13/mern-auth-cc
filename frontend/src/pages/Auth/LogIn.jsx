@@ -20,16 +20,15 @@ function LogIn({ ...props }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = values.current;
-    const payload = {
-      email: email.value,
-      password: password.value,
-    };
+    const payload = Object.keys(values.current).reduce((acc, key) => ({ ...acc, [key]: values.current[key].value }), {});
+
+    console.table(payload);
 
     try {
       const res = await login(payload).unwrap();
       dispatch(setCredentials(res.user));
       navigate('/');
+      toast.success('Login successful');
     } catch (e) {
       toast.error(e?.data?.message || e.error);
     }
