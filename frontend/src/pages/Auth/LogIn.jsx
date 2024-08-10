@@ -73,7 +73,9 @@ function LogIn({ ...props }) {
                 </label>
               </Form>
               <Form className='mt-6' onSubmit={handleSubmit}>
-                <Button type='submit'>Login</Button>
+                <Button color='primary' type='submit'>
+                  Login
+                </Button>
               </Form>
             </Card.Body>
           </Card>

@@ -59,7 +59,9 @@ function SignUp({ ...props }) {
               })}
 
               <Form className='mt-6' onSubmit={handleSubmit}>
-                <Button type='submit'>Sign Up</Button>
+                <Button color='primary' type='submit'>
+                  Sign Up
+                </Button>
               </Form>
             </Card.Body>
           </Card>
