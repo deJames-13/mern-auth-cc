@@ -11,7 +11,7 @@ import store from './store.js';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false} pauseOnFocusLoss theme='dark' draggable pauseOnHover />
+      <ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover stacked />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
