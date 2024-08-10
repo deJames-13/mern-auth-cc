@@ -5,6 +5,8 @@ export default class UserResource extends Resource {
       id: user._id,
       name: user.name,
       email: user.email,
+      createdAt: this.formatDate(user.createdAt),
+      updatedAt: this.formatDate(user.updatedAt),
     };
   }
 }

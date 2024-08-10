@@ -12,7 +12,7 @@ function PrivateLayout() {
   return (
     <div id='private-layout'>
       <Header />
-      <div className='container grid min-h-screen mx-auto place-items-center'>
+      <div className='container grid min-h-screen mx-auto my-12 place-items-center'>
         <Outlet />
       </div>
       <FooterWrapper />
