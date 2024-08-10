@@ -25,10 +25,14 @@ const User = new Model({
 User.statics.fillables = ['name', 'email', 'password'];
 User.statics.hidden = ['password'];
 
+User.statics.hashPassword = async function (password) {
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
+};
+
 User.pre('save', async function (next) {
   if (this.isModified('password')) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.password = await this.hashPassword(this.password);
   }
   next();
 });

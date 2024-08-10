@@ -23,12 +23,8 @@ export const createUser = asyncHandler(async (body) => {
 
 export const updateUser = asyncHandler(async (id, body) => {
   const data = User.filterFillables(body);
-  const user = await User.findById(id);
-  if (data.password) {
-    user.password = data.password;
-    await user.save();
-  }
-
+  if (data.password) data.password = await User.hashPassword(data.password);
+  const user = await User.findByIdAndUpdate(id, data, { new: true });
   return user;
 });
 
