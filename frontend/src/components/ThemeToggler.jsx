@@ -1,8 +1,6 @@
 import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
-
-const THEME_DARK = 'business';
-const THEME_LIGHT = 'corporate';
+import { THEMES } from '../constants';
 
 const propTypes = {
   type: PropTypes.string,
@@ -11,7 +9,7 @@ const propTypes = {
 };
 
 const IconsInToggler = ({ onToggle }) => {
-  const isLocalTheme = localStorage.getItem('theme') === THEME_DARK;
+  const isLocalTheme = localStorage.getItem('theme') === THEMES.DARK;
 
   return (
     <label className='grid cursor-pointer place-items-center'>
@@ -50,7 +48,7 @@ const IconsInToggler = ({ onToggle }) => {
 };
 
 const WithIcons = ({ onToggle }) => {
-  const isLocalTheme = localStorage.getItem('theme') === THEME_DARK;
+  const isLocalTheme = localStorage.getItem('theme') === THEMES.DARK;
 
   return (
     <label className='flex gap-2 cursor-pointer'>
@@ -67,7 +65,7 @@ const WithIcons = ({ onToggle }) => {
 };
 
 const SwapToggler = ({ onToggle }) => {
-  const isLocalTheme = localStorage.getItem('theme') === THEME_DARK;
+  const isLocalTheme = localStorage.getItem('theme') === THEMES.DARK;
 
   return (
     <label className='swap swap-rotate'>
@@ -87,13 +85,12 @@ function ThemeToggler({ type }) {
   const [theme, setTheme] = useState(null);
 
   useEffect(() => {
-    const localTheme = localStorage.getItem('theme') || THEME_DARK;
+    const localTheme = localStorage.getItem('theme') || THEMES.DARK;
     document.documentElement.setAttribute('data-theme', localTheme);
-    console.log('localTheme:', localTheme);
   }, [theme]);
 
   const handleThemeChange = (theme) => {
-    const newTheme = theme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
+    const newTheme = theme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
     localStorage.setItem('theme', newTheme);
     setTheme(newTheme);
   };
