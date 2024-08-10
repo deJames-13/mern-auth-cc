@@ -15,4 +15,5 @@ function Button({ children, ...buttonProps }) {
 Button.propTypes = propTypes;
 
 export default Button;
+export { default as BackButton } from './BackButton';
 export { default as LinkButton } from './LinkButton';

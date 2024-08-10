@@ -24,6 +24,13 @@ export const usersApi = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: USERS_URL + '/profile',
+        method: 'PUT',
+        body: data,
+      }),
+    }),
   }),
 });
 
