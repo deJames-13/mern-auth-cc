@@ -34,7 +34,7 @@ export const usersApi = apiSlice.injectEndpoints({
   }),
 });
 
-// Naming Convention:
+// Hooks Naming Convention:
 // mutation: use{Resource}Mutation
 // query: use{Resource}Query
 // subscription: use{Resource}Subscription
