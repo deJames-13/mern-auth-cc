@@ -9,10 +9,10 @@ import router from './routes';
 import store from './store.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <React.StrictMode>
       <ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover stacked />
       <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>
+    </React.StrictMode>
+  </Provider>
 );
